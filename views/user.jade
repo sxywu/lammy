@@ -1,7 +1,67 @@
 extend layout
 
 block content
-  .hero-unit
-    h1 lammycakes 
-    p nickname: alex|xan lam
-  
+  #navi go!
+
+  .section
+    .hero-unit
+      h1 lammycakes 
+      p
+        | help lammycakes (nickname: alex|xan lam) celebrate his birthday!<br>
+        | bookmark it, it's november 13th.  
+    .row-fluid
+      .span4
+        h2 1. pledge money
+        p.main donate $5, $10, $20, $1M - any amount of dollars to the lammycakes fund.  this fund will be used to buy lammycakes a well deserved birthday present.  and some booze.  maybe more booze than a present. 
+      .span4
+        h2 2. choose date
+        p.main let's have a party.  you're invited.  just vote for a day, and show up.  and maybe offer a venue and a car.  because i have neither of those.
+      .span4
+        h2 3. paaarrty!
+        p.main 'nuff said <3
+
+  .row-fluid.section
+    .span3
+      #description 
+        h2 why?
+        | lammycakes is a huge fan of nanami cowdroy (<a href="http://www.nanamicowdroy.com">with good reason</a>) and have been drooling over her laser-etched n-deck series for quite a while.<br>
+        | now, the n-decks may be a bit too ambitious (a whoppinng $600), but perhaps we can get some other things from her store (:<br>
+        | all copyright to nanami cowdroy! <br><br>
+        | suggestions for better gift ideas <a href="mailto:shirleyxueyangwu@gmail.com">always welcome</a>.
+      #pledge
+        h2 coolbeans!!<br>lemme pledge <3
+        #inputs
+          input(type="text", class="input-large", id="pledgename", placeholder="name")
+          .input-prepend.input-append
+            | <span class="add-on">$</span><input class="input-medium" type="text" id="pledgeamout" placeholder="1,000,000"><span class="add-on">.00</span>
+          input(type="text", class="input-large", id="pledgeemail", placeholder="email")
+          .btn pledge!
+
+    .span8.offset1#gifts
+      - var total = 100
+      h1#pledgetotal currently pledged: <span id="total">$#{total}</span>
+      gifts = [{"img": "images/3.jpg", "url": "http://www.rei.com/product/843712/arbor-timeless-fish-bamboo-longboard", "price": 179.95, "upvotes": 10, "name": "nanami cowdroy longboard", "desc": ""}, {"img": "images/1.jpg", "url": "http://www.rei.com/product/843712/arbor-timeless-fish-bamboo-longboard", "price": 600, "upvotes": 5, "name": 'nanami cowdroy "suspended animation"', "desc": "Custom laser etched/engraved front and back with artist mark. Strung ready for hanging. Each N-Deck has edition number."}];
+      each gift in gifts
+        .row-fluid.gift
+          .span3.giftpic
+            img(src=gift["img"], class="pic")
+          .span9.giftdesc
+            .header
+              | <h2><a href="#{gift["url"]}" target="_blank">#{gift["name"]}</a></h2>
+              span.upvotes #{gift["upvotes"]} upvotes
+            .content
+              span.pledged
+              span.totalprice
+              span.price $#{gift["price"]}
+              .desc=gift["desc"]
+
+
+  script(type="text/javascript")
+    $("#navi").click(function(e) {
+      console.log($(this));
+      $('html, body').stop().animate({
+        scrollTop: 1500
+      }, 1000);
+      
+      e.preventDefault();
+    });

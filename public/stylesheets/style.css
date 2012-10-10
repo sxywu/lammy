@@ -23,6 +23,142 @@ h1#splash {
 	text-shadow: 0px 0px 8px #666;
 }
 
+#navi {
+	position: fixed;
+	bottom: 50px;
+  right: 50%;
+}
+
+.section {
+	height: 1500px;
+}
+
 .hero-unit h1 {
 	color: #666;
+	font-size: 75px;
+}
+
+.row-fluid {
+	text-align: center;
+	color: #666;
+	margin-left: 0px;
+}
+
+p.main {
+	padding: 40px;
+	padding-top: 20px;
+	font-size: 18px;
+	text-align: justify;
+}
+
+#description, #pledge, #gifts {
+	text-align: left;
+}
+
+#pledge {
+	margin-top: 50px;
+	background-color: #fff;
+	border-radius: 10px;
+	padding-bottom: 20px;
+	border: 1px solid #E0EFF1;
+/*	box-shadow: 0 0 5px #888;*/
+	
+}
+
+#pledge h2 {
+	background-color: #E0EFF1;
+	border-radius: 10px 10px 0px 0;
+	padding: 10px 20px;
+	margin-top: 0;
+}
+
+#inputs {
+	margin: 10px 35px;
+}
+
+#pledge input, #pledge .add-on, #pledge .btn {
+	height: 30px;
+	margin-top: 5px;
+}
+
+.gift {
+	margin-bottom: 30px;
+}
+
+.giftpic {
+	background-color: #fff;
+	box-shadow: inset 0 0 7px #888;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+img.pic{
+	height: 300px;
+	margin: 10px;
+}
+
+.header {
+		background-color: #E0EFF1;
+		border-radius: 10px;
+		padding: 10px 20px;
+		text-align: left;
+		height: 60px;
+}
+
+.header a {
+	color: #666;
+}
+
+.content {
+	text-align: left;
+	padding: 10px;
+	margin: 20px;
+	position: relative;
+}
+
+#pledgetotal {
+	text-align: right;
+	margin: 30px;
+}
+
+#total {
+	color: #6CBF91;
+	font-size: 72px;
+}
+
+.price {
+	color: #6CBF91;
+	font-size: 36px;
+	margin-left: 200px;
+	border: inline-block;
+}
+
+.header h2 {
+	float: left;
+}
+.upvotes {
+	float: right;
+}
+
+.pledged {
+	border-radius: 5px 0 0px 5px;
+	background-color: #6CBF91;
+	display: inline-block;
+	height: 40px;
+	width: 100px;
+	position: absolute;
+}
+
+.totalprice {
+	border-radius: 5px;
+	display: inline-block;
+	height: 39px;
+	width: 179.95px;
+	border: 1px solid #888;
+	position: absolute;
+}
+
+.desc {
+	margin: 30px 0;
+	font-size: 16px;
 }

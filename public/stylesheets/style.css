@@ -2,6 +2,7 @@ body {
   padding: 50px;
   font: 14px Helvetica, Arial, sans-serif;
 	background-color: #fcfcfc;
+/*	background-image: url("../images/bg1.png");*/
 }
 
 a {
@@ -30,7 +31,11 @@ h1#splash {
 }
 
 .section {
-	height: 1500px;
+	margin-bottom:1000px;
+}
+
+.hero-unit {
+/*	background-image: url("../images/bg.png");*/
 }
 
 .hero-unit h1 {
@@ -53,6 +58,10 @@ p.main {
 
 #description, #pledge, #gifts {
 	text-align: left;
+}
+
+#gifts {
+	margin-left: 75px;
 }
 
 #pledge {
@@ -103,6 +112,7 @@ img.pic{
 		padding: 10px 20px;
 		text-align: left;
 		height: 60px;
+		position: relative;
 }
 
 .header a {
@@ -129,8 +139,8 @@ img.pic{
 .price {
 	color: #6CBF91;
 	font-size: 36px;
-	margin-left: 200px;
 	border: inline-block;
+	padding-left: 20px;
 }
 
 .header h2 {
@@ -145,7 +155,6 @@ img.pic{
 	background-color: #6CBF91;
 	display: inline-block;
 	height: 40px;
-	width: 100px;
 	position: absolute;
 }
 
@@ -153,7 +162,6 @@ img.pic{
 	border-radius: 5px;
 	display: inline-block;
 	height: 39px;
-	width: 179.95px;
 	border: 1px solid #888;
 	position: absolute;
 }
@@ -161,4 +169,72 @@ img.pic{
 .desc {
 	margin: 30px 0;
 	font-size: 16px;
+}
+
+i.icon-arrow-up {
+	position: absolute;
+	right: 0px;
+	width: 20px;
+	height: 20px;
+	top: 10px;
+	opacity: .6;
+	cursor: pointer;
+}
+
+.alert {
+	margin-top: 15px;
+	padding: 10px;
+}
+
+#dates {
+	margin-top: 30px;
+}
+
+.date {
+	display: inline-block;
+	width: 300px;
+	position: relative;
+	margin-top: 50px;
+}
+
+#thalassa {
+	margin-top: 20px;
+	border: 10px solid white;
+	width: 90%;
+	height: 90%;
+}
+
+text {
+	cursor: default;
+}
+
+text.date {
+	font-size: 1.75em;
+}
+
+text.rsvp {
+	font-weight: bold;
+	font-size: 1.25em;
+	cursor: pointer;
+}
+
+svg {
+	display: block;
+}
+
+.females, .males {
+	display: inline-block;
+	width: 150px;
+	position: absolute;
+	top: 150px;
+}
+
+.females {
+	right: 50%;
+	text-align: right;
+}
+
+.males {
+	left: 50%;
+	text-align: left;
 }

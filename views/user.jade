@@ -5,7 +5,7 @@ block content
 
   .section
     .hero-unit
-      h1 lammycakes 
+      h1 lammycakes 2012
       p
         | help lammycakes (nickname: alex|xan lam) celebrate his birthday!<br>
         | bookmark it, it's november 13th.  
@@ -37,31 +37,62 @@ block content
           input(type="text", class="input-large", id="pledgeemail", placeholder="email")
           .btn pledge!
 
-    .span8.offset1#gifts
-      - var total = 100
-      h1#pledgetotal currently pledged: <span id="total">$#{total}</span>
-      gifts = [{"img": "images/3.jpg", "url": "http://www.rei.com/product/843712/arbor-timeless-fish-bamboo-longboard", "price": 179.95, "upvotes": 10, "name": "nanami cowdroy longboard", "desc": ""}, {"img": "images/1.jpg", "url": "http://www.rei.com/product/843712/arbor-timeless-fish-bamboo-longboard", "price": 600, "upvotes": 5, "name": 'nanami cowdroy "suspended animation"', "desc": "Custom laser etched/engraved front and back with artist mark. Strung ready for hanging. Each N-Deck has edition number."}];
+    .span8#gifts
+      h1#pledgetotal currently pledged: <span id="total">$#{totalpledged}</span>
       each gift in gifts
-        .row-fluid.gift
+        .row-fluid.gift(id="#{gift["id"]}")
           .span3.giftpic
             img(src=gift["img"], class="pic")
           .span9.giftdesc
             .header
               | <h2><a href="#{gift["url"]}" target="_blank">#{gift["name"]}</a></h2>
               span.upvotes #{gift["upvotes"]} upvotes
+              i.icon-arrow-up
             .content
-              span.pledged
-              span.totalprice
-              span.price $#{gift["price"]}
-              .desc=gift["desc"]
+              - if (totalpledged < gift["price"])
+                span.pledged(style="width: #{totalpledged}px;")
+              - else
+                span.pledged(style="width: #{gift["price"] + 1}px;")
+              span.totalprice(style="width: #{gift["price"]}px; ")
+              span.price(style="margin-left: #{gift["price"]}px;") $#{gift["price"]}
+              - if (totalpledged >= gift["price"])
+                .alert.alert-success <h4>goal reached with $#{totalpledged - gift["price"]} left for booze <3</h4>
+              - if (gift["desc"])
+                .desc <h4>some detail and shizjazz:</h4> #{gift["desc"]}
 
 
-  script(type="text/javascript")
-    $("#navi").click(function(e) {
-      console.log($(this));
-      $('html, body').stop().animate({
-        scrollTop: 1500
-      }, 1000);
-      
-      e.preventDefault();
-    });
+  .row-fluid.section
+    .span8#dates
+      h1 choose any dates you can make, please (:
+      p the saturdays are 3PM so that we can have the whole venue to ourselves.<br>  <strong>thalassa</strong> is a pool bar that is ridiculously crowded on weekend nights, <br>but nicely empty in the afternoons, so we should take advantage~
+      p (unless you want to <a href="mailto:shirleyxueyangwu@gmail.com">offer up a venue</a> :D)
+      - var i = 0
+      each date in dates
+        .date
+          svg(data=pie[i])
+            - i += 1
+            g
+              text.date=date["date"]
+              text.time=date["time"]
+              text.rsvp
+          .females
+            - for(i = 0; i < date.female.length + 1; i += 1)
+              - if(i%5 == 0)
+                br
+              img(src="images/girl.png")
+          .males
+            - for(i = 0; i < date.male.length + 1; i += 1)
+              - if(i%5 == 0)
+                br
+              img(src="images/boy.png")
+    .span3
+      .header <h2>venue</h2>
+      img#thalassa(src="images/thalassa.jpg")
+      h3 thalassa
+      p 2367 Shattuck Ave <br> (between Channing Way & Durant Ave) <br> Berkeley, CA 94704
+      p <a href="http://www.yelp.com/biz/thalassa-berkeley" target="_blank">yelp</a>
+        
+
+  script(src="javascripts/lammy.js")
+    
+    

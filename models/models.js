@@ -7,11 +7,14 @@ db.once('open', function () {
 });
 
 var userSchema = new mongoose.Schema({
-  name: String,
+  firstName: String,
+	lastName: String,
   pledged: Boolean,
   amount: Number,
-  upvotes: [Number],
-  email: String
+  upvotes: [String],
+	rsvp: [String],
+	sex: String,
+  email: {type: String, unique:true}
 });
 
 exports.user = User = db.model('User', userSchema);
@@ -30,9 +33,9 @@ exports.gift = Gift = db.model('Gift', giftSchema);
 var eventSchema = new mongoose.Schema({
 	date: String,
 	time: String,
-	female: [Number],
-	male: [Number]
-}, { _id: false });
+	female: [String],
+	male: [String]
+});
 
 exports.event = Event = db.model('Event', eventSchema);
 
@@ -45,19 +48,16 @@ exports.event = Event = db.model('Event', eventSchema);
 // gift2.save();
 // gift3.save();
 // gift4.save();
-
-// var shirley = new User({name: "Shirley", pledged: false, amount: 25});
-// shirley.save();
-
 // 
-// var party1 = new Event({date: "11/9", time: "8PM", female: [], male: [], _id: 1}),
-// 	party2 = new Event({date: "11/10", time: "3PM", female: [], male: [], _id: 2}),
-// 	party3 = new Event({date: "11/17", time: "3PM", female: [], male: [], _id: 3});
-
-// var party1 = new Date({date: "11/9", time: "8PM", id: 1});
+// var shirley = new User({name: "Shirley", pledged: true, amount: 25});
+// shirley.save();
+// 
+// 
+// var party1 = new Event({date: "11/9", time: "8PM", female: [], male: []}),
+// 	party2 = new Event({date: "11/10", time: "3PM", female: [], male: []}),
+// 	party3 = new Event({date: "11/11", time: "3PM", female: [], male: []});
+// 
 // 	
 // party1.save();
 // party2.save();
 // party3.save();
-// 
-// console.log(1);

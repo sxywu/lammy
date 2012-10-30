@@ -9,8 +9,12 @@
     "express": "3.0.0rc4",
     "jade": "*",
     "mongoose": "*",
-		"jquery": "*",
-		"async": "*",
-		"d3": "*"
+    "jquery": "*",
+    "async": "*",
+    "d3": "*"
+  },
+  "subdomain": "lammy",
+  "engines": {
+    "node": "0.8.x"
   }
 }

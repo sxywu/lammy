@@ -5,7 +5,7 @@ block content
 
   .section
     .hero-unit
-      h1 lammycakes 2012
+      h1 lammycakes surprise party 2012
       p
         | help lammycakes (nickname: alex|xan lam) celebrate his birthday!<br>
         | bookmark it, it's november 13th.  
@@ -31,16 +31,14 @@ block content
       #pledge
         h2 coolbeans!!<br>lemme pledge <3
         #inputs
-          input(type="text", class="input-large", id="pledgename", placeholder="name")
           .input-prepend.input-append
             | <span class="add-on">$</span><input class="input-medium" type="text" id="pledgeamout" placeholder="1,000,000"><span class="add-on">.00</span>
-          input(type="text", class="input-large", id="pledgeemail", placeholder="email")
-          .btn pledge!
+          .btn.btn-success pledge!
 
     .span8#gifts
       h1#pledgetotal currently pledged: <span id="total">$#{totalpledged}</span>
       each gift in gifts
-        .row-fluid.gift(id="#{gift["id"]}")
+        .row-fluid.gift(id="#{gift["id"]}", data="#{gift["upvotes"]}")
           .span3.giftpic
             img(src=gift["img"], class="pic")
           .span9.giftdesc
@@ -64,29 +62,31 @@ block content
   .row-fluid.section
     .span8#dates
       h1 choose any dates you can make, please (:
-      p the saturdays are 3PM so that we can have the whole venue to ourselves.<br>  <strong>thalassa</strong> is a pool bar that is ridiculously crowded on weekend nights, <br>but nicely empty in the afternoons, so we should take advantage~
+      p the 3PM's are so that we can have the whole venue to ourselves.<br>  <strong>thalassa</strong> is a pool bar that is ridiculously crowded on weekend nights, <br>but nicely empty in the afternoons, so we should take advantage~
       p (unless you want to <a href="mailto:shirleyxueyangwu@gmail.com">offer up a venue</a> :D)
-      - var i = 0
-      each date in dates
-        .date
-          svg(data=pie[i])
-            - i += 1
+      - for (i = 0; i < dates.length; i += 1)
+        .date(id="#{dates[i]['id']}")
+          svg(data=pie[i], total=totalusers)
             g
-              text.date=date["date"]
-              text.time=date["time"]
-              text.rsvp
+              text.date=dates[i]["date"]
+              text.time=dates[i]["time"]
+              - if (user['rsvp'].indexOf(dates[i]['id']) >= 0) 
+                text.going
+              - else
+                text.rsvp
           .females
-            - for(i = 0; i < date.female.length + 1; i += 1)
-              - if(i%5 == 0)
+            - for (j = 0; j < dates[i]["female"].length; j += 1)
+              - if (j % 5 == 0)
                 br
-              img(src="images/girl.png")
+              img(src="images/girl.png", id="#{dates[i]["female"][j]}", title="#{dates[i]["female"][j]}")
           .males
-            - for(i = 0; i < date.male.length + 1; i += 1)
-              - if(i%5 == 0)
+            - for (j = 0; j < dates[i]["male"].length; j += 1)
+              - if (j % 5 == 0)
                 br
-              img(src="images/boy.png")
+              img(src="images/boy.png", id="#{dates[i]["male"][j]}, title="#{dates[i]["male"][j]}")
+
     .span3
-      .header <h2>venue</h2>
+      .header <h2>paaaarrrrty venue</h2>
       img#thalassa(src="images/thalassa.jpg")
       h3 thalassa
       p 2367 Shattuck Ave <br> (between Channing Way & Durant Ave) <br> Berkeley, CA 94704

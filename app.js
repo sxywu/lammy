@@ -17,6 +17,7 @@ app.configure(function(){
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
+	app.use(express.cookieParser("lammycakes2012"));
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
@@ -35,7 +36,14 @@ app.get('/user', routes.user);
 
 app.get('/admin', routes.admin);
 
+app.post('/user', routes.user);
+
 app.post('/upvote', routes.upvote);
+
+app.post('/rsvp', routes.rsvp);
+
+app.post('/cancel', routes.cancel);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

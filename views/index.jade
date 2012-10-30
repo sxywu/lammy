@@ -3,6 +3,56 @@ extends layout
 block content
   h1#splash lammycakes
   h2#countdown
-  a#facebook(href='user') log in with facebook
+  a#signin(href='#') sign in
 
-  script(type="text/javascript")
+  .modal.hide.fade.
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal" action="user" method="post">
+        <div class="control-group">
+          <label class="control-label" for="firstName">First Name</label>
+          <div class="controls">
+            <input type="text" id="firstName" name="firstName" placeholder="Shirley">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="lastName">Last Name</label>
+          <div class="controls">
+            <input type="text" id="lastName" name="lastName" placeholder="Wu">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="inputEmail">Email</label>
+          <div class="controls">
+            <input type="text" id="inputEmail" name="inputEmail" placeholder="Email">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="gender">Gender</label>
+          <div class="controls">
+            <label class="radio">
+              <input type="radio" name="genderRadios" id="femaleRadio" value="female" checked>
+                Female
+              </input>
+            </label>
+            <label class="radio">
+              <input type="radio" name="genderRadios" id="maleRadio" value="male">
+                Male
+              </input>
+            </label>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn btn-primary">Sign in</button>
+          </div>
+        </div>
+      </form>
+  </div>
+
+  script
+    $("#signin").click(function() {
+      $(".modal").modal("show");
+    });

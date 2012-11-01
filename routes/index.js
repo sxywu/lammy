@@ -25,19 +25,34 @@ exports.user = function(req, res) {
 	id = req.signedCookies.id;
 	
 	if (!$.isEmptyObject(req.body)) {
-		var user = new User({firstName: req.body.firstName, 
-			lastName: req.body.lastName,
-			email: req.body.inputEmail,
-			sex: req.body.genderRadios});
-		user.save();
+		if (req.body.firstName && req.body.lastName && req.body.inputEmail) {
+			User.find({email: req.body.inputEmail}, function(err, user) {
+				if (user.length == 0) {
+					user = new User({firstName: req.body.firstName, 
+								lastName: req.body.lastName,
+								email: req.body.inputEmail,
+								sex: req.body.genderRadios,
+								paid: false});
+					user.save();
+					userId = user.id;
 
-		userId = user.id;
-
-		res.cookie('id', userId, {signed: true, maxAge: 3000000});
+					console.log("new user");
+					res.cookie('id', userId, {signed: true, maxAge: 3000000});
+				} else {
+					userId = user[0].id;
+					console.log("old user");				
+					res.cookie('id', userId, {signed: true, maxAge: 3000000});
+				}
+				renderUser(req, res);
+			});
+		} else {
+			res.render("index");
+		}
 		
-		renderUser(req, res);
 	} else if (typeof id != 'undefined') {
 		userId = id;
+		console.log("saved id");
+		res.cookie('id', userId, {signed: true, maxAge: 3000000});
 		renderUser(req, res);
 	} else {
 		res.render("index");
@@ -91,22 +106,39 @@ renderUser = function(req, res) {
 			// var percent = totalattending / totalusers;
 			pie.push(totalattending);
 		});
-		console.log(user);
 		
+		console.log(user);
 	  res.render('user', {"totalpledged": totalpledged, "totalusers": totalusers, 
 			"totaldates": results.dates.length, "gifts": results.gifts, "pie": pie, 
 			"dates": results.dates, "user": user});
 	});
 }
 
+exports.pledge = function(req, res) {
+	var data = req.body.objectData,
+		id = mongoose.Types.ObjectId(userId);
+		
+	User.findByIdAndUpdate(id, {$set: {pledged: true}}, function(err, user) {
+	});
+	User.findByIdAndUpdate(id, {$set: {amount: parseInt(data.amount)}}, function(err, user) {
+		// console.log("pledge", user);
+	});
+	
+	res.send({data: "success"});
+	
+}
+
 exports.upvote = function(req, res) {
 	var data = req.body.objectData,
-		id = mongoose.Types.ObjectId(data.id);
+		id = mongoose.Types.ObjectId(data.id),
+		uid = mongoose.Types.ObjectId(userId);
 	Gift.findByIdAndUpdate(id, {$inc: {upvotes: 1}}, function(err, gift) {
 		res.contentType('json');
 	  res.send({ data: gift.upvotes});
 	});
-	User.findByIdAndUpdate(mongoose.Types.ObjectId(userId), {$push: {upvotes: data.id}});
+	User.findByIdAndUpdate(mongoose.Types.ObjectId(userId), {$push: {upvotes: data.id}}, function(err, user) {
+		// console.log("upvote", user);
+	});
 }
 
 exports.rsvp = function(req, res) {
@@ -134,8 +166,7 @@ exports.rsvp = function(req, res) {
 				  res.send({gender: "male", name: name, total: totalusers});
 				});
 			}
-			
-			console.log(user);
+			// console.log("rsvp", user);
 		});
 	});
 }
@@ -164,11 +195,25 @@ exports.cancel = function(req, res) {
 				  res.send({gender: "male", name: name, total: totalusers});
 				});
 			}
-			console.log(user);
 		});
 	});
 }
 
-exports.admin = function(req, res) {
-	res.render('admin', {"gifts": gifts});
+exports.submit = function(req, res) {
+	var data = req.body.objectData,
+		id = mongoose.Types.ObjectId(userId);
+	
+	User.findByIdAndUpdate(id, {$set: {oneword: data.oneword, favmoment:data.favmoment}}, function(err, user) {
+		console.log(user);
+		res.send({redirect: "/success"});
+	});
+	
 }
+
+exports.success = function(req, res) {
+	res.render("success");
+}
+// 
+// exports.admin = function(req, res) {
+// 	res.render('admin', {"gifts": gifts});
+// }

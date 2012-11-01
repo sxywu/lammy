@@ -56,3 +56,11 @@ block content
     $("#signin").click(function() {
       $(".modal").modal("show");
     });
+    
+    $("#firstName, #lastName").keypress(function (e){
+      var charCode = (e.which) ? e.which : e.keyCode;
+      if (charCode < 8 || (charCode > 8 && charCode < 65) || (charCode > 90 && charCode < 97 ) || charCode > 122) {
+        console.log(e.which, e.keyCode);
+        return false;
+      }
+    });

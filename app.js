@@ -34,15 +34,21 @@ app.get('/', routes.index);
 
 app.get('/user', routes.user);
 
-app.get('/admin', routes.admin);
+// app.get('/admin', routes.admin);
 
 app.post('/user', routes.user);
+
+app.post('/pledge', routes.pledge);
 
 app.post('/upvote', routes.upvote);
 
 app.post('/rsvp', routes.rsvp);
 
 app.post('/cancel', routes.cancel);
+
+app.post('/submit', routes.submit);
+
+app.get('/success', routes.success);
 
 
 http.createServer(app).listen(app.get('port'), function(){

@@ -1,96 +1,150 @@
 extend layout
 
 block content
-  #navi go!
+  #navi
+    img(src="images/cat.png")
 
   .section
-    .hero-unit
-      h1 lammycakes surprise party 2012
-      p
-        | help lammycakes (nickname: alex|xan lam) celebrate his birthday!<br>
-        | bookmark it, it's november 13th.  
-    .row-fluid
-      .span4
-        h2 1. pledge money
-        p.main donate $5, $10, $20, $1M - any amount of dollars to the lammycakes fund.  this fund will be used to buy lammycakes a well deserved birthday present.  and some booze.  maybe more booze than a present. 
-      .span4
-        h2 2. choose date
-        p.main let's have a party.  you're invited.  just vote for a day, and show up.  and maybe offer a venue and a car.  because i have neither of those.
-      .span4
-        h2 3. paaarrty!
-        p.main 'nuff said <3
+    .bg
+      .hero-unit
+        h1 lammycakes surprise 2012
+        p
+          | help lammycakes (nickname: alex|xan lam) celebrate his birthday!<br>
+          | bookmark it, it's november 13th.
+      .row-fluid
+        .span4
+          h2 1. pledge money
+          p.main donate $5, $10, $20, $1M - any amount of dollars to the lammycakes fund.  this fund will be used to buy lammycakes a well deserved birthday present.  and some booze.  maybe more booze than a present.
+        .span4
+          h2 2. choose date
+          p.main let's have a party.  you're invited.  just vote for a day, and show up.  and maybe offer a venue and a car.  because i have neither of those.
+        .span4
+          h2 3. paaarrty!
+          p.party 'nuff said <3
+      .row-fluid
+        .span12
+          #dancing
+            img(src="images/dancing.png")
+          #secret and<br>*keep<br>secret<br>yo
 
   .row-fluid.section
-    .span3
-      #description 
-        h2 why?
-        | lammycakes is a huge fan of nanami cowdroy (<a href="http://www.nanamicowdroy.com">with good reason</a>) and have been drooling over her laser-etched n-deck series for quite a while.<br>
-        | now, the n-decks may be a bit too ambitious (a whoppinng $600), but perhaps we can get some other things from her store (:<br>
-        | all copyright to nanami cowdroy! <br><br>
-        | suggestions for better gift ideas <a href="mailto:shirleyxueyangwu@gmail.com">always welcome</a>.
-      #pledge
-        h2 coolbeans!!<br>lemme pledge <3
-        #inputs
-          .input-prepend.input-append
-            | <span class="add-on">$</span><input class="input-medium" type="text" id="pledgeamout" placeholder="1,000,000"><span class="add-on">.00</span>
-          .btn.btn-success pledge!
+    .bg
+      .span3
+        #description 
+          h2 why?
+          | lammycakes is a huge fan of nanami cowdroy (<a href="http://www.nanamicowdroy.com">with good reason</a>) and have been drooling over her laser-etched n-deck series for quite a while.<br>
+          | now, the n-decks may be a bit too ambitious (a whoppinng $600), but perhaps we can get some other things from her store (:<br>
+          | all copyright to nanami cowdroy! <br><br>
+          | suggestions for better gift ideas <a href="mailto:shirleyxueyangwu@gmail.com">always welcome</a>.
+        #pledge
+          h2 coolbeans!!<br>lemme pledge <3
+          #inputs
+            - if (typeof user.amount === 'undefined')
+              .input-prepend.input-append
+                | <span class="add-on">$</span><input class="input-medium" type="text" id="pledgeamount" name="pledgeamount" placeholder="1,000,000"><span class="add-on">.00</span>
+              br
+              .btn.btn-success.pledge pledge!
+            - else
+              p thank you for donating <strong>$#{user.amount}</strong> <3.<br>because I don't have Paypal or Google or Amazon Wallet or anything fancy like that, I will be collecting the donations at the parteeehhh so make sure to bring enough cash (:
 
-    .span8#gifts
-      h1#pledgetotal currently pledged: <span id="total">$#{totalpledged}</span>
-      each gift in gifts
-        .row-fluid.gift(id="#{gift["id"]}", data="#{gift["upvotes"]}")
-          .span3.giftpic
-            img(src=gift["img"], class="pic")
-          .span9.giftdesc
-            .header
-              | <h2><a href="#{gift["url"]}" target="_blank">#{gift["name"]}</a></h2>
-              span.upvotes #{gift["upvotes"]} upvotes
-              i.icon-arrow-up
-            .content
-              - if (totalpledged < gift["price"])
-                span.pledged(style="width: #{totalpledged}px;")
-              - else
-                span.pledged(style="width: #{gift["price"] + 1}px;")
-              span.totalprice(style="width: #{gift["price"]}px; ")
-              span.price(style="margin-left: #{gift["price"]}px;") $#{gift["price"]}
-              - if (totalpledged >= gift["price"])
-                .alert.alert-success <h4>goal reached with $#{totalpledged - gift["price"]} left for booze <3</h4>
-              - if (gift["desc"])
-                .desc <h4>some detail and shizjazz:</h4> #{gift["desc"]}
+      .span8#gifts
+        h1#pledgetotal total pledged: <span id="total">$#{totalpledged}</span>
+        each gift in gifts
+          .row-fluid.gift(id="#{gift["id"]}", data="#{gift["upvotes"]}")
+            - if (gift.tall)
+              .span3.giftpic
+                img(src=gift["img"], class="pic")
+              .span9.giftdesc
+                .header
+                  | <h2><a href="#{gift["url"]}" target="_blank">#{gift["name"]}</a></h2>
+                  span.upvotes #{gift["upvotes"]} upvotes
+                  i.icon-arrow-up
+                .content
+                  - if (totalpledged < gift["price"])
+                    span.pledged(style="width: #{totalpledged}px;")
+                  - else
+                    span.pledged(style="width: #{gift["price"] + 1}px;")
+                  span.totalprice(style="width: #{gift["price"]}px; ")
+                  span.price(style="margin-left: #{gift["price"]}px;") $#{gift["price"]}
+                  - if (totalpledged >= gift["price"])
+                    .alert.alert-success <h4>goal reached with $#{totalpledged - gift["price"]} left for booze <3</h4>
+                  - if (gift["desc"])
+                    .desc
+                      h4 some detail and shizjazz:
+                      p !{gift["desc"]}
+            - else
+              .header
+                | <h2><a href="#{gift["url"]}" target="_blank">#{gift["name"]}</a></h2>
+                span.upvotes #{gift["upvotes"]} upvotes
+                i.icon-arrow-up
+              .content
+                .giftpichorizontal
+                  img(src=gift["img"], class="pichorizontal")
+                .giftdesc
+                  - if (totalpledged < gift["price"])
+                    span.pledged(style="width: #{totalpledged}px;")
+                  - else
+                    span.pledged(style="width: #{gift["price"] + 1}px;")
+                  span.totalprice(style="width: #{gift["price"]}px; ")
+                  span.price(style="margin-left: #{gift["price"]}px;") $#{gift["price"]}
+                  - if (totalpledged >= gift["price"])
+                    .alert.alert-success <h4>goal reached with $#{totalpledged - gift["price"]} left for booze <3</h4>
+                  - if (gift["desc"])
+                    .desc
+                      h4 some detail and shizjazz:
+                      p !{gift["desc"]}
 
 
   .row-fluid.section
-    .span8#dates
-      h1 choose any dates you can make, please (:
-      p the 3PM's are so that we can have the whole venue to ourselves.<br>  <strong>thalassa</strong> is a pool bar that is ridiculously crowded on weekend nights, <br>but nicely empty in the afternoons, so we should take advantage~
-      p (unless you want to <a href="mailto:shirleyxueyangwu@gmail.com">offer up a venue</a> :D)
-      - for (i = 0; i < dates.length; i += 1)
-        .date(id="#{dates[i]['id']}")
-          svg(data=pie[i], total=totalusers)
-            g
-              text.date=dates[i]["date"]
-              text.time=dates[i]["time"]
-              - if (user['rsvp'].indexOf(dates[i]['id']) >= 0) 
-                text.going
-              - else
-                text.rsvp
-          .females
-            - for (j = 0; j < dates[i]["female"].length; j += 1)
-              - if (j % 5 == 0)
-                br
-              img(src="images/girl.png", id="#{dates[i]["female"][j]}", title="#{dates[i]["female"][j]}")
-          .males
-            - for (j = 0; j < dates[i]["male"].length; j += 1)
-              - if (j % 5 == 0)
-                br
-              img(src="images/boy.png", id="#{dates[i]["male"][j]}, title="#{dates[i]["male"][j]}")
+    .bg
+      .span8#dates
+        h1 when?
+        p the 3PM's are so that we can have the whole venue to ourselves.<br>  <strong>thalassa</strong> is a pool bar that is ridiculously crowded on weekend nights, <br>but nicely empty in the afternoons, so we should take advantage~
+        p (unless you want to <a href="mailto:shirleyxueyangwu@gmail.com">offer up a venue</a> :D)
+        - for (i = 0; i < dates.length; i += 1)
+          .date(id="#{dates[i]['id']}")
+            svg(data=pie[i], total=totalusers)
+              g
+                text.date=dates[i]["date"]
+                text.time=dates[i]["time"]
+                - if (user['rsvp'].indexOf(dates[i]['id']) >= 0) 
+                  text.going
+                - else
+                  text.rsvp
+            .females
+              - for (j = 0; j < dates[i]["female"].length; j += 1)
+                - if (j % 5 == 0)
+                  br
+                img(src="images/girl.png", id="#{dates[i]["female"][j]}", title="#{dates[i]["female"][j]}")
+            .males
+              - for (k = 0; k < dates[i]["male"].length; k += 1)
+                - if (k % 5 == 0)
+                  br
+                img(src="images/boy.png", title="#{dates[i]["male"][k]}", id="#{dates[i]["male"][k]})
 
-    .span3
-      .header <h2>paaaarrrrty venue</h2>
-      img#thalassa(src="images/thalassa.jpg")
-      h3 thalassa
-      p 2367 Shattuck Ave <br> (between Channing Way & Durant Ave) <br> Berkeley, CA 94704
-      p <a href="http://www.yelp.com/biz/thalassa-berkeley" target="_blank">yelp</a>
+      .span3#venue
+        img#thalassa(src="images/thalassa.jpg")
+        h3 thalassa
+        p 2367 Shattuck Ave <br> (between Channing Way & Durant Ave) <br> Berkeley, CA 94704
+        p <a href="http://www.yelp.com/biz/thalassa-berkeley" target="_blank">yelp</a>
+
+  .row-fluid.section
+    .bg
+      .span11#lammy
+        #lammybody
+          h1 who?
+          p describe lammy in one word:
+          - if (typeof user.oneword === "undefined")
+            input#oneword(type="text")
+          - else
+            input#oneword(type="text", value="#{user.oneword}")
+          p do you has a favorite moment with lammy?
+          - if (typeof user.favmoment=== "undefined")
+            textarea#favmoment(rows="5")
+          - else
+            textarea#favmoment(rows="5", value="#{user.favmoment}")
+          p no regrets?
+          .btn.btn-success#submit submit!
         
 
   script(src="javascripts/lammy.js")

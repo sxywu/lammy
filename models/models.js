@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
 	db = mongoose.createConnection('localhost', 'test');
-
+	// db = mongoose.createConnection('mongodb://nodejitsu:8471d5be27b67142cc2b681850dd7d18@alex.mongohq.com:10000/nodejitsudb971995647558');
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {

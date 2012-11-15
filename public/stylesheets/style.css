@@ -306,7 +306,7 @@ svg {
 .females {
 	right: 50%;
 	text-align: right;
-	margin-top: 30px;
+/*	margin-top: 30px;*/
 }
 
 .females img {
@@ -316,7 +316,7 @@ svg {
 .males {
 	left: 50%;
 	text-align: left;
-	margin-top: 30px;
+/*	margin-top: 30px;*/
 }
 
 .males img {
